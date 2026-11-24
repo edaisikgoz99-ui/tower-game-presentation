@@ -2,6 +2,10 @@
 
 Fizik tabanlı bir blok kulesi oyunu. Unity 6 ve URP ile geliştirildi; mobil öncelikli tasarlandı. Bilgisayara karşı tek oyunculu ya da aynı cihazda iki kişilik oynanır.
 
+**[Tarayıcıda oyna](https://edaisikgoz99-ui.github.io/tower-game-presentation/)**
+
+Demo sürümünde Klasik, Fabrika ve Buzul baştan açık. Mağaza ile reklam akışları test modunda çalışır.
+
 | Ana menü | Mağaza | Klasik | Fabrika | Buzul |
 |---|---|---|---|---|
 | ![Ana menü](Docs/screenshots/ana-menu.jpg) | ![Mağaza](Docs/screenshots/magaza.jpg) | ![Klasik bölüm](Docs/screenshots/klasik.jpg) | ![Fabrika](Docs/screenshots/fabrika.jpg) | ![Buzul](Docs/screenshots/buzul.jpg) |
