@@ -1,0 +1,55 @@
+name: Publish playable demo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/demo.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the compiled demo
+        uses: actions/checkout@v6
+        with:
+          ref: demo-build
+          path: demo
+          persist-credentials: false
+      - name: Assemble the build files
+        shell: bash
+        working-directory: demo
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          rm -rf .git
+          for first in Build/*.part-000; do
+            output="${first%.part-000}"
+            parts=("${output}".part-*)
+            cat -- "${parts[@]}" > "$output"
+            rm -- "${parts[@]}"
+          done
+          sha256sum --check build-checksums.sha256
+          rm build-checksums.sha256
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload the demo
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: demo
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
